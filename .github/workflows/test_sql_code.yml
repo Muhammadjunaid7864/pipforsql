@@ -16,7 +16,7 @@ jobs:
           echo "SELECT * FROM [testdb].[dbo].[STUDENTS122]" > ./query/myquery.sql
           
           # Use sqlcmd for syntax checking (without executing)
-          sqlcmd -S localhost -d testdb -i ./myquery/query.sql -r0
+          sqlcmd -S localhost -d testdb -i ./query/myquery.sql -r0
           if [ $? -eq 0 ]; then
             echo "SQL query syntax is valid."
           else
