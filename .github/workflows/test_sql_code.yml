@@ -11,10 +11,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Check SQL Query Syntax
-        run: |
-          # Save the SQL query file (replace 'query.sql' with your file name)
-          echo "SELECT * FROM [testdb].[dbo].[STUDENTS122]" > ./query/myquery.sql
-          
+        run: |          
           # Use sqlcmd for syntax checking (without executing)
           sqlcmd -S localhost -d testdb -i ./query/myquery.sql -r0
           if [ $? -eq 0 ]; then
