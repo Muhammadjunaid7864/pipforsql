@@ -13,13 +13,13 @@ jobs:
       - name: Start SQL Server with Database
         run: |
           # Start SQL Server Docker container with a specific database
-          docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Your_Strong_Password' -e 'MSSQL_DB=Your_Database_Name' -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:latest
+          docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=' -e 'MSSQL_DB=testdb' -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:latest
 
       - name: Wait for SQL Server to Start
         run: |
           # Wait for SQL Server to be ready (adjust the timeout as needed)
           TIMEOUT=60
-          while ! docker exec sql_server_container /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Your_Strong_Password' -Q "SELECT 1"; do
+          while ! docker exec sql_server_container /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -Q "SELECT 1"; do
             sleep 1
             TIMEOUT=$((TIMEOUT - 1))
             if [ "$TIMEOUT" -eq 0 ]; then
