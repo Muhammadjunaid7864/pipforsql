@@ -13,10 +13,10 @@ jobs:
       - name: Check SQL Query Syntax
         run: |
           # Save the SQL query file (replace 'query.sql' with your file name)
-          echo "SELECT * FROM [testdb].[dbo].[STUDENTS122]" > query.sql
+          echo "SELECT * FROM [testdb].[dbo].[STUDENTS122]" > ./query/myquery.sql
           
           # Use sqlcmd for syntax checking (without executing)
-          sqlcmd -S localhost -d Your_Database_Name -U SA -P 'Your_Strong_Password' -i query.sql -r0
+          sqlcmd -S localhost -d testdb -i ./myquery/query.sql -r0
           if [ $? -eq 0 ]; then
             echo "SQL query syntax is valid."
           else
