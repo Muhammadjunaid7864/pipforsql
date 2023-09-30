@@ -1,31 +1,24 @@
-name: Start Local SQL Server with Database
+name: Check SQL Query Syntax
 
 on: [push]
 
 jobs:
-  start-sql-server:
+  check-sql-query-syntax:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Start SQL Server with Database
+      - name: Check SQL Query Syntax
         run: |
-          # Start SQL Server Docker container with a specific database
-          docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=' -e 'MSSQL_DB=testdb' -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:latest
-
-      - name: Wait for SQL Server to Start
-        run: |
-          # Wait for SQL Server to be ready (adjust the timeout as needed)
-          TIMEOUT=60
-          while ! docker exec sql_server_container /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -Q "SELECT 1"; do
-            sleep 1
-            TIMEOUT=$((TIMEOUT - 1))
-            if [ "$TIMEOUT" -eq 0 ]; then
-              echo "SQL Server not ready within the timeout."
-              exit 1
-            fi
-          done
-
+          # Attempt to parse the SQL query file (replace 'query.sql' with your file name)
+          sqlcmd -i query.sql -U SA -P 'admin' -S localhost -d testdb -b
+          if [ $? -eq 0 ]; then
+            echo "SQL query syntax is valid."
+          else
+            echo "SQL query syntax is invalid."
+            exit 1
+          fi
+          
       # Add more steps here for your project's build/test/deploy processes
