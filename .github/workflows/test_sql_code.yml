@@ -12,8 +12,11 @@ jobs:
 
       - name: Check SQL Query Syntax
         run: |
-          # Attempt to parse the SQL query file (replace 'query.sql' with your file name)
-          sqlcmd -i ./query/myquery.sql -U SA -P 'admin' -S localhost -d testdb -b
+          # Save the SQL query file (replace 'query.sql' with your file name)
+          echo "SELECT * FROM [testdb].[dbo].[STUDENTS122]" > query.sql
+          
+          # Use SQL Server Management Studio (SSMS) command-line utility for syntax checking
+          ssmscmd -S localhost -d Your_Database_Name -E -i query.sql -q
           if [ $? -eq 0 ]; then
             echo "SQL query syntax is valid."
           else
