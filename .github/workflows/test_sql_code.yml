@@ -13,7 +13,7 @@ jobs:
       - name: Check SQL Query Syntax
         run: |
           # Attempt to parse the SQL query file (replace 'query.sql' with your file name)
-          sqlcmd -i query.sql -U SA -P 'admin' -S localhost -d testdb -b
+          sqlcmd -i ./query/myquery.sql -U SA -P 'admin' -S localhost -d testdb -b
           if [ $? -eq 0 ]; then
             echo "SQL query syntax is valid."
           else
