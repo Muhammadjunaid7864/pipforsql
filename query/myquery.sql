@@ -1,1 +1,1 @@
-SELECT * FROM [testdb].[dbo].[STUDENTS]
+SELECT * FROM [testdb].[dbo].[STUDENTS122]
